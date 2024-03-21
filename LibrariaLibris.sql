@@ -15,6 +15,8 @@ primary key(ID)
 
 desc Carti;
 
+alter table Carti add Editura varchar(50);
+
 create table Autori
 (ID int not null auto_increment,
 Nume varchar(100),
@@ -22,6 +24,13 @@ primary key(ID)
 );
 
 desc Autori;
+
+alter table Autori
+add Prenume varchar(50);
+
+alter table Autori
+drop column Prenume;
+
 
 create table Clienti
 (ID int not null auto_increment,
@@ -40,6 +49,8 @@ primary key(ID)
 
 desc Gen;
 
+drop table Gen;
+
 create table Comenzi
 (ID int not null auto_increment,
 IDclient int,
@@ -48,15 +59,12 @@ DataComenzii date,
 primary key(ID)
 );
 
+
+truncate Comenzi;
+
+
 desc Comenzi;
 
-drop table Autori;
-drop table Carti;
-drop table Clienti;
-drop table Comenzi;
-drop table Gen;
-
-truncate Autori;
 
 #Instrucțiuni de DML (INSERT, DELETE, UPDATE) -->> am folosit insert, rename, update
 # inserare date in tabele
@@ -76,6 +84,7 @@ insert into Carti (NumeCarte, AutorID, DataAparitie, GenID, Pret)values
 ('Frica', 4, '2021-09-25', 4, '31.99');
 
 select *from Carti;
+
 
 insert into Clienti (NumeClient, Email)values
 ('Radu Andreea', 'andreea.antimia@gmail.com'),
@@ -114,6 +123,18 @@ update GenCarte set GenCarte="Literatura" where ID=1;
 
 select *from GenCarte;
 
+alter table Carti
+add Reducere int;
+
+alter table Carti
+drop column Reducere;
+
+delete from Clienti
+where ID = 2;
+
+select *from Clienti;
+
+
 #(select all, select câteva coloane, filtrare cu where, filtrări cu like, filtrări cu AND și OR, 
 #funcții agregate, filtrări pe funcții agregate, joinuri - inner join, left join, right join, cross
 #join, limite, order by, chei primare, chei secundare)
@@ -135,7 +156,7 @@ select * from Clienti where NumeClient = 'Radu Andreea';
 select * from Carti where NumeCarte like '%pisicile%';
 
 select *from Clienti 
-where ID like '2';
+where ID like '3';
 
 #filtrări cu AND și OR
 
