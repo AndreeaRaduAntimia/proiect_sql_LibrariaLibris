@@ -13,13 +13,16 @@ Database description: I created a database that contains 5 tables: Books, Author
 You can find below the database schema that was generated through Reverse Engineer and which contains all the tables and the relationships between them.
 The tables are connected in the following way:
 
--we add a Foreign keys; the secondary key 'AuthorID' which refers to the primary key 'ID' from the 'Authors' table, the relationship between them is Many-to-many;
+-I added a Foreign keys; the secondary key 'AuthorID' which refers to the primary key 'ID' from the 'Authors' table, the relationship between them is Many-to-many;
+
 alter table Carti add constraint foreign key (AutorID) references Autori(ID);
 
 -add a second Foreign keys; the secondary key 'IDclient' which refers to the primary key 'ID' from the table 'Clients', the relationship between them is 1:1
+
 alter table Comenzi add constraint foreign key (IDclient) references Clienti(ID);
 
--adaugam un al treilea Foreign keys;cheia secundara 'GenID' care face referire la cheia primara 'ID' din tabela 'Gen', relatia dintre ele este de Many-to-many
+-I added a third Foreign keys; the secondary key 'GenID' which refers to the primary key 'ID' from the 'Gen' table, the relationship between them is Many-to-many
+
 alter table Carti add foreign key (GenID) references Gen(ID);
 
 2. Database Queries
