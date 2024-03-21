@@ -17,7 +17,7 @@ The tables are connected in the following way:
 
 alter table Carti add constraint foreign key (AutorID) references Autori(ID);
 
--add a second Foreign keys; the secondary key 'IDclient' which refers to the primary key 'ID' from the table 'Clients', the relationship between them is 1:1
+-I added a second Foreign keys; the secondary key 'IDclient' which refers to the primary key 'ID' from the table 'Clients', the relationship between them is 1:1
 
 alter table Comenzi add constraint foreign key (IDclient) references Clienti(ID);
 
