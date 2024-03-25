@@ -5,7 +5,7 @@ use LibrariaLibris;
 #creare tabele 
 create table Carti
 (ID int not null auto_increment,
-NumeCarte varcharacter(70) not null,
+NumeCarte varchar(70) not null,
 AutorID int,
 DataAparitie date,
 GenID int,
@@ -15,7 +15,8 @@ primary key(ID)
 
 desc Carti;
 
-alter table Carti add Editura varchar(50);
+alter table Carti add Editura varchar(50) not null;
+
 
 create table Autori
 (ID int not null auto_increment,
@@ -38,6 +39,7 @@ NumeClient varchar(100),
 Email varchar(50),
 primary key(ID)
 );
+
 
 desc Clienti;
 
@@ -77,11 +79,12 @@ insert into Autori (Nume)values
 
 select *from Autori;
 
-insert into Carti (NumeCarte, AutorID, DataAparitie, GenID, Pret)values
-('Cat timp infloresc lamaii', 1, '2023-01-05', 1, '39.92'),
-('Metamorfoza', 2, '2022-06-10', 2, '19.12'),
-('Daca pisicile ar disparea din lume', 3, '2020-07-01', 3, '25.60'),
-('Frica', 4, '2021-09-25', 4, '31.99');
+insert into Carti (NumeCarte, AutorID, DataAparitie, GenID, Pret, Editura)values
+('Cat timp infloresc lamaii', 1, '2023-01-05', 1, '39.92', 'BOOKZONE'),
+('Metamorfoza', 2, '2022-06-10', 2, '19.12', 'CARTEX'),
+('Daca pisicile ar disparea din lume', 3, '2020-07-01', 3, '25.60', 'HUMANITAS'),
+('Frica', 4, '2021-09-25', 4, '31.99', 'LITERA');
+
 
 select *from Carti;
 
@@ -105,6 +108,12 @@ insert into Gen(GenCarte)values
 ('Nuvela'),
 ('Ficțiune literară'),
 ('Dezvoltare personala');
+
+insert into Carti (Editura)values
+('BOOKZONE'),
+('CARTEX'),
+('HUMANITAS'),
+('LITERA');
 
 
 #adaugam un Foreign keys; cheia secundara 'AutorID' care face referire la cheia primara 'ID' din tabela 'Autori';
@@ -131,6 +140,7 @@ drop column Reducere;
 
 delete from Clienti
 where ID = 2;
+
 
 select *from Clienti;
 

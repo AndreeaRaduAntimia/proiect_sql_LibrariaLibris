@@ -33,7 +33,7 @@ The following instructions were written in the scope of CREATING the structure o
 
 create table Carti
 (ID int not null auto_increment,
-NumeCarte varcharacter(70) not null,
+NumeCarte varchar(70) not null,
 AutorID int,
 DataAparitie date,
 GenID int,
@@ -70,6 +70,8 @@ primary key(ID)
 
 After the database and the tables have been created, a few ALTER instructions were written in order to update the structure of the database, as described below:
 
+alter table Carti add Editura varchar(50) not null;
+
 alter table Autori
 add Prenume varchar(50);
 
@@ -89,7 +91,6 @@ alter table Carti
 drop column Reducere;
 
 
-
   2.2 DML (Data Manipulation Language)
 
 In order to be able to use the database I populated the tables with various data necessary in order to perform queries and manipulate the data. In the testing process, this necessary data is identified in the Test Design phase and created in the Test Implementation phase.
@@ -103,29 +104,25 @@ insert into Autori (Nume)values
 ('Genki Kawamura'),
 ('Osho');
 
-select *from Autori;
 
-insert into Carti (NumeCarte, AutorID, DataAparitie, GenID, Pret)values
-('Cat timp infloresc lamaii', 1, '2023-01-05', 1, '39.92'),
-('Metamorfoza', 2, '2022-06-10', 2, '19.12'),
-('Daca pisicile ar disparea din lume', 3, '2020-07-01', 3, '25.60'),
-('Frica', 4, '2021-09-25', 4, '31.99');
+insert into Carti (NumeCarte, AutorID, DataAparitie, GenID, Pret, Editura)values
+('Cat timp infloresc lamaii', 1, '2023-01-05', 1, '39.92', 'BOOKZONE'),
+('Metamorfoza', 2, '2022-06-10', 2, '19.12', 'CARTEX'),
+('Daca pisicile ar disparea din lume', 3, '2020-07-01', 3, '25.60', 'HUMANITAS'),
+('Frica', 4, '2021-09-25', 4, '31.99', 'LITERA');
 
-select *from Carti;
 
 insert into Clienti (NumeClient, Email)values
 ('Radu Andreea', 'andreea.antimia@gmail.com'),
 ('Kiss Oana', 'oana.kiss@gmail.com'),
 ('Ene Elena', 'elena.ene@yahoo.com');
 
-select *from Clienti;
 
 insert into Comenzi(IDclient, IDcarte, DataComenzii)values
 (1, 2456, '2023-09-30'),
 (2, 4560, '2023-08-27'),
 (3, 7834, '2023-10-03');
 
-select *from Comenzi;
 
 insert into Gen(GenCarte)values
 ('Beletristica'),
