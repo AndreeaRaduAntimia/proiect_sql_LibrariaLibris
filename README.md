@@ -138,36 +138,36 @@ where ID = 2;**
 
 In order to simulate various scenarios that might happen in real life I created the following queries that would cover multiple potential real-life situations:
 
-** select *from Clienti where NumeClient = 'Radu Andreea';**
+** select *from Clienti where NumeClient = 'Radu Andreea';**<where>
 
-** select *from Carti where GenID >= 1 AND DataAparitie > '2022-07-01';**
+** select *from Carti where GenID >= 1 AND DataAparitie > '2022-07-01';**<AND>
 
-** select *from  Carti where GenID =2 OR GenID =4;**
+** select *from  Carti where GenID =2 OR GenID =4;**<OR>
 
-** select *from Carti where NOT ID=4;**
+** select *from Carti where NOT ID=4;**<NOT>
 
-** select * from Carti where NumeCarte like '%pisicile%';
+** select * from Carti where NumeCarte like '%pisicile%';<like>
 select *from Clienti where ID like '3';**
 
-** select Carti.NumeCarte, Autori.Nume from Carti inner join Autori on Carti.AutorID = Autori.ID;**
+** select Carti.NumeCarte, Autori.Nume from Carti inner join Autori on Carti.AutorID = Autori.ID;**<inner join>
 
-** select Carti.NumeCarte, Comenzi.DataComenzii from Carti left join Comenzi on Carti.ID = Comenzi.ID;**
+** select Carti.NumeCarte, Comenzi.DataComenzii from Carti left join Comenzi on Carti.ID = Comenzi.ID;**<left join>
 
-** select Comenzi.ID, Clienti.NumeClient from Comenzi right join Clienti on Comenzi.IDclient = Clienti.ID;**
+** select Comenzi.ID, Clienti.NumeClient from Comenzi right join Clienti on Comenzi.IDclient = Clienti.ID;**<right join>
 
-** select Carti.NumeCarte, GenCarte.GenCarte from Carti cross join GenCarte;**
+** select Carti.NumeCarte, GenCarte.GenCarte from Carti cross join GenCarte;**<cross join>
 
-** select SUM(pret) from Carti;**
-select COUNT(*) as total_carti FROM Carti;
-select MIN(DataAparitie) as min_DataAparitie FROM Carti;
-select MAX(DataAparitie) as max_DataAparitie FROM Carti;
-select AVG(Pret) from Carti;**
+** select SUM(pret) from Carti;**<SUM>
+select COUNT(*) as total_carti FROM Carti;<COUNT>
+select MIN(DataAparitie) as min_DataAparitie FROM Carti;<MIN>
+select MAX(DataAparitie) as max_DataAparitie FROM Carti;<MAX>
+select AVG(Pret) from Carti;**,<AVG>
 
-** select Gen.GenCarte, SUM(Carti.Pret) as SumaTotala from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;**
+** select Gen.GenCarte, SUM(Carti.Pret) as SumaTotala from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;**<group by>
 
-** select Gen.GenCarte, SUM(Carti.Pret) AS SumaTotala FROM Carti INNER JOIN Gen ON Carti.GenID = Gen.ID GROUP BY Gen.GenCarte HAVING SUM(Carti.Pret) > 30;**
+** select Gen.GenCarte, SUM(Carti.Pret) AS SumaTotala FROM Carti INNER JOIN Gen ON Carti.GenID = Gen.ID GROUP BY Gen.GenCarte HAVING SUM(Carti.Pret) > 30;**<having>
 
-** select Nume from Autori where ID IN (select AutorID from Carti where Pret > (select AVG(Pret) from Carti));**
+** select Nume from Autori where ID IN (select AutorID from Carti where Pret > (select AVG(Pret) from Carti));**<Subquerie>
 
 </ol>
 
