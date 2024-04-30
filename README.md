@@ -1,13 +1,10 @@
-Database Project for Libris.ro
+<h1>Database Project for **Libris.ro**</h1>
 
 The scope of this project is to use all the SQL knowledge gained throught the Software Testing course and apply them in practice.
 
 Application under test: https://www.libris.ro/
 
 Tools used: MySQL Workbench
-
-Database description: I created a database that contains 5 tables: Books, Authors, Genre, Orders and Customers. These tables are connected by foreign keys so that we can perform queries.
-<h1>Database Project for **Libris.ro**</h1>
 
 Database description: **I created a database that contains 5 tables: Books, Authors, Genre, Orders and Customers. These tables are connected by foreign keys so that we can perform queries.**
 
