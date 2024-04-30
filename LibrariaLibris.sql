@@ -14,6 +14,7 @@ primary key(ID)
 );
 
 desc Carti;
+drop table Carti;
 
 alter table Carti add Editura varchar(50) not null;
 
@@ -63,6 +64,7 @@ primary key(ID)
 
 
 truncate Comenzi;
+drop table Comenzi;
 
 
 desc Comenzi;
@@ -109,11 +111,7 @@ insert into Gen(GenCarte)values
 ('Ficțiune literară'),
 ('Dezvoltare personala');
 
-insert into Carti (Editura)values
-('BOOKZONE'),
-('CARTEX'),
-('HUMANITAS'),
-('LITERA');
+select *from GenCarte;
 
 
 #adaugam un Foreign keys; cheia secundara 'AutorID' care face referire la cheia primara 'ID' din tabela 'Autori';
@@ -130,7 +128,8 @@ rename to GenCarte;
 
 update GenCarte set GenCarte="Literatura" where ID=1;
 
-select *from GenCarte;
+
+
 
 alter table Carti
 add Reducere int;
@@ -173,6 +172,9 @@ where ID like '3';
 select *from Carti where GenID >= 1 AND DataAparitie > '2022-07-01';
 select *from Carti where GenID =2 OR GenID =4;
 
+# filtrari cu NOT
+select *from Carti where NOT ID=4;
+
 #funcții agregate, filtrări pe funcții agregate
 
 select SUM(pret) from Carti;
@@ -206,5 +208,13 @@ select *from Carti order by Pret;
 # limite
 select *from Comenzi order by DataComenzii desc Limit 4;
 
+# group by
+
+select Gen.GenCarte, SUM(Carti.Pret) as SumaTotala from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;
+
+# having 
+
+SELECT Gen.GenCarte, SUM(Carti.Pret) AS SumaTotala FROM Carti INNER JOIN Gen ON Carti.GenID = Gen.ID GROUP BY Gen.GenCarte HAVING SUM(Carti.Pret) > 30;
+
 # subquery-uri
-select Nume from Autori where ID IN (select AutorID from Carti where Pret > (select AVG(Pret) from Carti));
+select Nume from Autori where ID in (select AutorID from Carti where Pret > (select AVG(Pret) from Carti));
