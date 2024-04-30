@@ -1,4 +1,3 @@
-
 Database Project for Libris.ro
 
 The scope of this project is to use all the SQL knowledge gained throught the Software Testing course and apply them in practice.
@@ -9,12 +8,6 @@ Tools used: MySQL Workbench
 
 Database description: I created a database that contains 5 tables: Books, Authors, Genre, Orders and Customers. These tables are connected by foreign keys so that we can perform queries.
 <h1>Database Project for **Libris.ro**</h1>
-
-The scope of this project is to use all the SQL knowledge gained throught the Software Testing course and apply them in practice.
-
-Application under test: **https://www.libris.ro/**
-
-Tools used: MySQL Workbench
 
 Database description: **I created a database that contains 5 tables: Books, Authors, Genre, Orders and Customers. These tables are connected by foreign keys so that we can perform queries.**
 
@@ -149,22 +142,34 @@ where ID = 2;**
 In order to simulate various scenarios that might happen in real life I created the following queries that would cover multiple potential real-life situations:
 
 ** select *from Clienti where NumeClient = 'Radu Andreea';**
+
 ** select *from Carti where GenID >= 1 AND DataAparitie > '2022-07-01';**
+
 ** select *from  Carti where GenID =2 OR GenID =4;**
+
 ** select *from Carti where NOT ID=4;**
+
 ** select * from Carti where NumeCarte like '%pisicile%';
 select *from Clienti where ID like '3';**
+
 ** select Carti.NumeCarte, Autori.Nume from Carti inner join Autori on Carti.AutorID = Autori.ID;**
+
 ** select Carti.NumeCarte, Comenzi.DataComenzii from Carti left join Comenzi on Carti.ID = Comenzi.ID;**
+
 ** select Comenzi.ID, Clienti.NumeClient from Comenzi right join Clienti on Comenzi.IDclient = Clienti.ID;**
+
 ** select Carti.NumeCarte, GenCarte.GenCarte from Carti cross join GenCarte;**
+
 ** select SUM(pret) from Carti;**
 select COUNT(*) as total_carti FROM Carti;
 select MIN(DataAparitie) as min_DataAparitie FROM Carti;
 select MAX(DataAparitie) as max_DataAparitie FROM Carti;
 select AVG(Pret) from Carti;**
+
 ** select Gen.GenCarte, SUM(Carti.Pret) as SumaTotala from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;**
+
 ** select Gen.GenCarte, SUM(Carti.Pret) AS SumaTotala FROM Carti INNER JOIN Gen ON Carti.GenID = Gen.ID GROUP BY Gen.GenCarte HAVING SUM(Carti.Pret) > 30;**
+
 ** select Nume from Autori where ID IN (select AutorID from Carti where Pret > (select AVG(Pret) from Carti));**
 
 </ol>
