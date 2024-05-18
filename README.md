@@ -10,7 +10,7 @@ Database description: I created a database that contains 5 tables: Books, Author
   1. Database Schema
 
      You can find below the database schema that was generated through Reverse Engineer and which contains all the tables and the relationships between them.
-     ![DiagramaLibrariaLibris!](/Users/andreearadu/Desktop/Proiecte_SQL/DiagramaLibrariaLibris.jpg)
+     ![DiagramaLibrariaLibris!](/Users/andreearadu/Desktop/Proiecte_SQL/proiect_sql_LibrariaLibris/DiagramaLibrariaLibris.jpg)
 
       The tables are connected in the following way:
 
