@@ -128,8 +128,13 @@ rename to GenCarte;
 
 update GenCarte set GenCarte="Literatura" where ID=1;
 
+update Carti set Pret=49.90 where ID=1; 
 
+update Comenzi set DataComenzii="2024-05-01" where ID=1;
 
+update Clienti set NumeClient="Radu Andreea-Roxana" where ID=1;
+
+update Comenzi set IDcarte="0700" where ID=3;
 
 alter table Carti
 add Reducere int;
@@ -139,6 +144,8 @@ drop column Reducere;
 
 delete from Clienti
 where ID = 2;
+
+delete from Comenzi where ID=3;
 
 
 select *from Clienti;
@@ -171,6 +178,7 @@ where ID like '3';
 
 select *from Carti where GenID >= 1 AND DataAparitie > '2022-07-01';
 select *from Carti where GenID =2 OR GenID =4;
+select *from Carti where DataAparitie >= '2021-09-25' OR Pret > '20.00';
 
 # filtrari cu NOT
 select *from Carti where NOT ID=4;
@@ -182,6 +190,19 @@ select COUNT(*) as total_carti FROM Carti;
 select MIN(DataAparitie) as min_DataAparitie FROM Carti;
 select MAX(DataAparitie) as max_DataAparitie FROM Carti;
 select AVG(Pret) from Carti;
+
+# Această interogare returnează o listă cu numele autorilor și suma totală a prețurilor cărților lor.
+select Autori.Nume as NumeAutor, SUM(Carti.Pret) as SumaTotala from Carti inner join Autori on Carti.AutorID = Autori.ID group by Autori.Nume;
+
+# Această interogare returnează o listă cu genurile de cărți și numărul total de cărți din fiecare gen.
+select Gen.GenCarte as NumeGen, COUNT(Carti.ID) as NumarCarti from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;
+
+# Această interogare returnează o listă cu genurile de cărți și prețul mediu al cărților din fiecare gen.
+select Gen.GenCarte as NumeGen, AVG(Carti.Pret) as PretMediu from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;
+
+# Această interogare returnează o listă de autori și suma totală a prețurilor cărților lor, dar numai pentru acei autori pentru care suma totală este mai mare de 50.
+select Autori.Nume as NumeAutor, SUM(Carti.Pret) as SumaTotala from Carti inner join Autori on Carti.AutorID = Autori.ID group by Autori.Nume having SUM(Carti.Pret) > 50;
+
 
 #joinuri - inner join, left join, right join, cross join, limite, order by
 
@@ -206,11 +227,15 @@ select Carti.NumeCarte, GenCarte.GenCarte from Carti cross join GenCarte;
 select *from Carti order by Pret;
 
 # limite
-select *from Comenzi order by DataComenzii desc Limit 4;
+select *from Comenzi order by DataComenzii desc Limit 2;
 
 # group by
 
 select Gen.GenCarte, SUM(Carti.Pret) as SumaTotala from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;
+
+select AVG(Pret) as PretMediu from Carti;
+
+select Autori.Nume from Autori join Carti on Autori.ID = Carti.AutorID group by Autori.Nume having MAX(Carti.Pret) > (SELECT AVG(Pret) from Carti);
 
 # having 
 
@@ -218,3 +243,27 @@ SELECT Gen.GenCarte, SUM(Carti.Pret) AS SumaTotala FROM Carti INNER JOIN Gen ON 
 
 # subquery-uri
 select Nume from Autori where ID in (select AutorID from Carti where Pret > (select AVG(Pret) from Carti));
+
+select 
+    NumeCarte, 
+    Pret, 
+    (select AVG(Pret) from Carti) as PretMediu,
+    case
+        when Pret > (select AVG(Pret) from Carti) then 'Peste Medie'
+        else 'Sub Medie'
+    end as ComparatiePret
+from
+    Carti;
+    
+select
+    Gen.GenCarte, 
+    SUM(Carti.Pret) as SumaTotala
+from
+    Carti
+inner join
+    Gen on Carti.GenID = Gen.ID
+group by 
+    Gen.GenCarte
+having
+    SUM(Carti.Pret) > 
+    (select SUM(Pret)/COUNT(distinct GenID) from Carti);

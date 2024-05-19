@@ -103,8 +103,22 @@ values
          After the insert, in order to prepare the data to be better suited for the testing process, I updated some data in the following way:
        * update GenCarte set GenCarte="Literatura" where ID=1;
 
+       * update GenCarte set GenCarte="Literatura" where ID=1;
+
+       * update Carti set Pret=49.90 where ID=1;
+
+       * update Comenzi set DataComenzii="2024-05-01" where ID=1;
+
+       * update Clienti set NumeClient="Radu Andreea-Roxana" where ID=1;
+
+       * update Comenzi set IDcarte="0700" where ID=3;
+
       After the testing process, I deleted the data that was no longer relevant in order to preserve the database clean:
+
        * delete from Clienti where ID = 2;
+
+       * delete from Comenzi where ID = 3;
+
 
 	  iii. DQL (Data Query Language)
                In order to simulate various scenarios that might happen in real life I created the following queries that would cover multiple potential real-life situations:
@@ -131,15 +145,15 @@ values
            ```
          * Return data about the name of the book and the price:
             ```sql
-            select NumeCarte, Pret  from Carti;
+           select NumeCarte, Pret  from Carti;
             ```
          * Return data about a customer's name:
            ```sql
-           select * from Clienti where NumeClient = 'Radu Andreea';
+           select * from Clienti where NumeClient = 'Radu Andreea-Roxana';
            ```
          * Return books data with word "pisicile"
            ```sql
-           select * from Carti where NumeCarte like '%pisicile%';
+           select *from Carti where NumeCarte like '%pisicile%';
            ```
          * Return information about customers with ID 3:
            ```sql
@@ -174,9 +188,25 @@ values
          select MAX(DataAparitie) as max_DataAparitie FROM Carti;
          ```
          * Return the total number of books from the books table:
-        ```sql
-        select COUNT(*) as total_carti FROM Carti;
-        ```
+         ```sql
+         select COUNT(*) as total_carti FROM Carti;
+         ```
+         * Returns a list of author names and the total sum of their book prices:
+         ```sql
+         select Autori.Nume as NumeAutor, SUM(Carti.Pret) as SumaTotala from Carti inner join Autori on Carti.AutorID = Autori.ID group by Autori.Nume;
+         ```
+         * Returns a list of card genres and the total number of cards in each genre:
+         ```sql
+         select Gen.GenCarte as NumeGen, COUNT(Carti.ID) as NumarCarti from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;
+         ```
+         * Returns a list of book genres and the average price of books in each genre:
+         ```sql
+         select Gen.GenCarte as NumeGen, AVG(Carti.Pret) as PretMediu from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;
+         ```
+         * Returns a list of authors and the total sum of their book prices, but only for those authors for which the total sum is greater than 50:
+         ```sql
+         select Autori.Nume as NumeAutor, SUM(Carti.Pret) as SumaTotala from Carti inner join Autori on Carti.AutorID = Autori.ID group by Autori.Nume having SUM(Carti.Pret) > 50;
+         ```
          * Returns the names of the books from the 'Books' table and the names of the corresponding authors from the 'Authors' table:
          ```sql
          select Carti.NumeCarte, Autori.Nume from Carti inner join Autori on Carti.AutorID = Autori.ID;
@@ -201,6 +231,13 @@ values
          ```sql
          select *from Comenzi order by DataComenzii desc Limit 2;
          ```
+         * Returns first the average price of all books and then it will return a list of names of authors who have at least one book with a price higher than the average price of all books in the database:
+         ```sql
+         select AVG(Pret) as PretMediu from Carti;
+
+         select Autori.Nume from Autori join Carti on Autori.ID = Carti.AutorID group by Autori.Nume having MAX(Carti.Pret) > (SELECT AVG(Pret) from Carti);
+         ```
+
          * Returns a list of books genres along with the sum total of the prices of all books belonging to each genre:
          ```sql
          select Gen.GenCarte, SUM(Carti.Pret) as SumaTotala from Carti inner join Gen on Carti.GenID = Gen.ID group by Gen.GenCarte;
@@ -213,7 +250,26 @@ values
          ```sql
            select Nume from Autori where ID in (select AutorID from Carti where Pret > (select AVG(Pret) from Carti));
          ```
-
+         * Returns the average price of the books and displays the title of the book and whether its price is above the average price of all books.
+         ```sql
+         select NumeCarte, Pret,
+         (select AVG(Pret) from Carti) as PretMediu,
+         case
+         when Pret > (select AVG(Pret) from Carti) then 'Peste Medie'
+         else 'Sub Medie'
+         end as ComparatiePret
+         from Carti;
+         ```
+         * Returns the genres that have a total sum of book prices greater than the sum of all book prices divided by the total number of genres.
+         ```sql
+         select Gen.GenCarte,
+         SUM(Carti.Pret) as SumaTotala
+         from Carti
+         inner join Gen on Carti.GenID = Gen.ID
+         group by Gen.GenCarte
+         having SUM(Carti.Pret) >
+         (select SUM(Pret)/COUNT(distinct GenID) from Carti);
+         ```
   4. Conclusions
 
      Working on this SQL project I learned to create a database, to be able to access information from it and to improve my knowledge gained during the course. Since I lost the database I worked on initially, I had to start the project from the beginning, thus I managed to better integrate and deepen the information learned.
