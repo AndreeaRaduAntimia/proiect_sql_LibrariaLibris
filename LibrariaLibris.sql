@@ -123,6 +123,12 @@ alter table Comenzi add constraint foreign key (IDclient) references Clienti(ID)
 #adaugam un al treilea Foreign keys;cheia secundara 'GenID' care face referire la cheia primara 'ID' din tabela 'Gen'
 alter table Carti add foreign key (GenID) references Gen(ID);
 
+#adaugam un al patrulea Foreign keys
+alter table Carti add constraint foreign key (AutorID) references Comenzi(ID);
+
+
+
+
 alter table Gen
 rename to GenCarte;
 

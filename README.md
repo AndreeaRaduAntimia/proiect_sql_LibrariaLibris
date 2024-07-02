@@ -17,6 +17,7 @@ Database description: I created a database that contains 5 tables: Books, Author
      * **Tabel 'Carti'** is connected with **Tabel 'Autor'** through a **Many-to-many** relationship which was implemented through **Autor.ID** as a primary key and **Carti.AutorID** as a foreign key
      * **Tabel 'Carti'** is connected with **Tabel 'Gen'** through a **Many-to-many** relationship which was implemented through **Gen.ID** as a primary key and **Carti.GenID** as a foreign key
      * **Tabel 'Clienti'** is connected with **Tabel 'Comenzi'** through a **1:1** relationship which was implemented through **Clienti.ID** as a primary key and **Comenzi.nume_IDclient** as a foreign key
+     * **Tabel 'Carti'** is connected with **Tabel 'Comenzi'** through a **Many-to-many** relationship which was implemented through **Comenzi.ID** as a primary key and **Carti_AutorID** as a foreign key
 
    3. Database Queries
 
